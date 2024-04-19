@@ -17,11 +17,14 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
+    "paths": {
+      "@core/*": ["./src/app/core/*"],
+      "@auth/*": ["./src/app/auth/*"],
+      "@shared/*": ["./src/app/shared/*"],
+      "@pokemon/*": ["./src/app/pokemon/*"]
+    },
     "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
+    "lib": ["ES2022", "dom"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

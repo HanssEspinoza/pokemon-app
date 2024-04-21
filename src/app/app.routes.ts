@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 
 export const routes: Routes = [
   {
@@ -9,6 +10,7 @@ export const routes: Routes = [
     path: 'dashboard',
     loadChildren: () =>
       import('@pokemon/pokemon.routes').then((m) => m.pokemonRoutes),
+    ...canActivate(() => redirectUnauthorizedTo(['/auth/login'])),
   },
   {
     path: '404',

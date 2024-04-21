@@ -5,8 +5,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
-import { AuthService, ValidatorsService } from '@core/services';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService, ToastService, ValidatorsService } from '@core/services';
 import { InputComponent, PasswordInputComponent } from '@shared/components';
 import { LoadingComponent } from '@shared/pages';
 
@@ -27,6 +27,8 @@ export class LoginPageComponent {
   #fb = inject(FormBuilder);
   #validatorsService = inject(ValidatorsService);
   #authService = inject(AuthService);
+  #toastService = inject(ToastService);
+  #router = inject(Router);
 
   public isLoading = signal<boolean>(false);
 
@@ -53,8 +55,8 @@ export class LoginPageComponent {
 
     this.#authService
       .login(this.loginForm().value)
-      .then((resp) => console.log(resp))
-      .catch((err) => console.log(err))
+      .then(() => this.#router.navigateByUrl('/dashboard'))
+      .catch((err) => this.#toastService.showToast(err.message, 'error'))
       .finally(() => this.isLoading.set(false));
   }
 }

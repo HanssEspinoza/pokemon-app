@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { ToolbarComponent } from '@shared/components';
 
 @Component({
-  selector: 'app-layout-page',
+  selector: 'auth-layout-page',
   standalone: true,
   imports: [RouterOutlet, ToolbarComponent],
   templateUrl: './layout-page.component.html',

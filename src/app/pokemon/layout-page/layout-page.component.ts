@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
+import { ToolbarComponent } from '@shared/components';
 
 @Component({
   selector: 'app-layout-page',
   standalone: true,
-  imports: [],
+  imports: [ToolbarComponent],
   templateUrl: './layout-page.component.html',
-  styles: ``
+  styles: ``,
 })
-export class LayoutPageComponent {
-
-}
+export class LayoutPageComponent {}

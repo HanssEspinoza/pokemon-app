@@ -2,7 +2,8 @@
   <input
     type="text"
     id="floating_outlined"
-    class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-primary peer"
+    class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 appearance-none focus:outline-none focus:ring-0 focus:border-primary peer"
+    [ngClass]="isValidControl() ? 'border-red-300' : 'border-gray-300'"
     [type]="type()"
     [formControl]="control()"
     placeholder=""
@@ -13,3 +14,8 @@
     >{{ label() }}</label
   >
 </div>
+@if (isValidControl()) {
+<span class="text-xs text-red-500">
+  {{ getError() }}
+</span>
+}

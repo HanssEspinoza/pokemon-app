@@ -24,6 +24,26 @@ export class PokemonPageComponent {
     this.getPokemons();
   }
 
+  selectedPokemons: Pokemon[] = [];
+
+  togglePokemonSelection(pokemon: Pokemon) {
+    const index = this.selectedPokemons.findIndex(
+      (p) => p.code === pokemon.code
+    );
+
+    if (index !== -1) {
+      this.selectedPokemons.splice(index, 1); // Elimina el Pokémon si ya está seleccionado
+    } else {
+      if (this.selectedPokemons.length < 3) {
+        this.selectedPokemons.push(pokemon); // Agrega el Pokémon si hay menos de 3 seleccionados
+      }
+    }
+  }
+
+  isPokemonSelected(pokemon: Pokemon): boolean {
+    return this.selectedPokemons.some((p) => p.code === pokemon.code);
+  }
+
   getPokemons() {
     this.isLoading.set(true);
 
@@ -53,5 +73,18 @@ export class PokemonPageComponent {
         this.isLoading.set(false);
       },
     });
+  }
+
+  savePokemons() {
+    this.isLoading.set(true);
+    this.#pokemonService
+      .addPokemons(this.selectedPokemons)
+      .then(() => {
+        this.#toastService.showToast('Pokemons Guardados con éxito', 'success');
+      })
+      .catch((err) => {
+        this.#toastService.showToast('Error al cargar los Pokémon.', 'error');
+      })
+      .finally(() => this.isLoading.set(false));
   }
 }

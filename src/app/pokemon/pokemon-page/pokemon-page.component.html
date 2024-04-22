@@ -25,7 +25,11 @@
         </div>
         <div class="grid grid-cols-3 gap-4">
           @for(item of pokemons(); track item) {
-          <div class="bg-gray-100 rounded-lg">
+          <div
+            class="bg-gray-100 rounded-lg cursor-pointer"
+            (click)="togglePokemonSelection(item)"
+            [class.bg-yellow-500]="isPokemonSelected(item)"
+          >
             <div class="flex flex-col items-center">
               <img [src]="item.img" [alt]="item.name" class="w-24 h-24" />
               <div class="bg-blue-950 text-white px-2 py-1 mt-1 rounded-lg">
@@ -36,6 +40,13 @@
           </div>
           }
         </div>
+        <button
+          [disabled]="selectedPokemons.length < 3"
+          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-white text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 mt-4"
+          (click)="savePokemons()"
+        >
+          Continuar
+        </button>
       </div>
     </div>
   </div>

@@ -90,7 +90,7 @@
             Completa la siguiente información para completar tu perfil
           </p>
         </div>
-        <form [formGroup]="editForm()">
+        <form [formGroup]="editForm()" (ngSubmit)="onSubmit()">
           <div class="flex flex-col gap-2">
             <shared-input
               label="Nombre*"
@@ -100,11 +100,17 @@
               label="Pasatiempo favorito"
               [control]="$any(editForm().get('hobby'))"
             />
+            <shared-calendar-input
+              label="Cumpleaños*"
+              [control]="$any(editForm().get('birthday'))"
+              (input)="onDateChange($event)"
+            />
             <shared-input
-              label="Documento"
+              [label]="age && age > 18 ? 'Documento' : 'Carnet de minoridad'"
               [control]="$any(editForm().get('document'))"
             />
             <button
+              [disabled]="editForm().invalid"
               class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-white text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 mt-4"
             >
               Continuar

@@ -1,0 +1,50 @@
+<h2 class="text-3xl font-bold mb-4">{{ user()?.name }}</h2>
+<div class="relative mb-4">
+  @if(profileImageUrl) {
+  <img
+    class="inline-block h-52 w-52 rounded-full ring-4 ring-white mb-10"
+    [src]="profileImageUrl"
+    alt="Profile Image"
+  />
+  } @else {
+  <div class="bg-white rounded-full p-2 mb-4">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="text-gray-400 h-32 w-32"
+    >
+      <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+      <circle cx="12" cy="7" r="4"></circle>
+    </svg>
+  </div>
+  }
+  <div class="grid grid-cols-2 gap-4">
+    <div class="flex flex-column">
+      <h2 class="text-left font-bold">Pasatiempo:</h2>
+    </div>
+    <div class="flex flex-column">
+      <p class="text-right">{{ user()?.hobby }}</p>
+    </div>
+    <div class="flex flex-column">
+      <h2 class="text-left font-bold">Edad:</h2>
+    </div>
+    <div class="flex flex-column">
+      <p class="text-right">{{ age() }}</p>
+    </div>
+    @if(age() >=18) {
+    <div class="flex flex-column">
+      <h2 class="text-left font-bold">DUI:</h2>
+    </div>
+    <div class="flex flex-column">
+      <p class="text-right">{{ user()?.document }}</p>
+    </div>
+    }
+  </div>
+</div>

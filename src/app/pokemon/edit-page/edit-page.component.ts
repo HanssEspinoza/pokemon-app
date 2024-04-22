@@ -6,14 +6,19 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { StorageService, ToastService } from '@core/services';
-import { InputComponent } from '@shared/components';
+import { StorageService, ToastService, UserService } from '@core/services';
+import { CalendarInputComponent, InputComponent } from '@shared/components';
 import { LoadingComponent } from '@shared/pages';
 
 @Component({
   selector: 'app-edit-page',
   standalone: true,
-  imports: [LoadingComponent, InputComponent, ReactiveFormsModule],
+  imports: [
+    LoadingComponent,
+    InputComponent,
+    ReactiveFormsModule,
+    CalendarInputComponent,
+  ],
   templateUrl: './edit-page.component.html',
   styles: ``,
 })
@@ -21,6 +26,7 @@ export class EditPageComponent {
   #toastService = inject(ToastService);
   #fb = inject(FormBuilder);
   #storageService = inject(StorageService);
+  #userService = inject(UserService);
 
   public editForm = signal<FormGroup>(
     this.#fb.group({
@@ -31,9 +37,14 @@ export class EditPageComponent {
     })
   );
 
+  get birthdayDate() {
+    return this.editForm().get('birthday');
+  }
+
   email = localStorage.getItem('email');
   profileImageUrl: string | null = null;
   public isLoading = signal<boolean>(false);
+  public age: number | null = null;
 
   ngOnInit() {
     this.getProfileImage();
@@ -81,5 +92,48 @@ export class EditPageComponent {
         console.error('Error al listar imágenes:', error);
       })
       .finally(() => this.isLoading.set(false));
+  }
+
+  onDateChange(event: any) {
+    const selectedDate = new Date(event.target.value);
+    this.age = this.calculateAge(selectedDate);
+    console.log(this.age);
+  }
+
+  async onSubmit() {
+    if (this.editForm().invalid) {
+      this.editForm().markAllAsTouched();
+      return;
+    }
+
+    this.isLoading.set(true);
+
+    const documentValue = this.editForm().get('document')?.value;
+
+    if (this.age && this.age >= 18) {
+      const documentRegex = /^\d{8}-\d$/;
+      if (!documentRegex.test(documentValue)) {
+        this.#toastService.showToast(
+          'Documento de identidad debe tener el siguiente enmascarado (05265519-8)',
+          'error'
+        );
+        return;
+      }
+    }
+
+    this.#userService
+      .addUser(this.editForm().value)
+      .then(() =>
+        this.#toastService.showToast('Datos cargados correctamente', 'success')
+      )
+      .catch((err) => this.#toastService.showToast(err, 'error'))
+      .finally(() => this.isLoading.set(false));
+  }
+
+  private calculateAge(birthday: Date): number {
+    const today = new Date();
+    const diff = today.getTime() - birthday.getTime();
+    const ageDate = new Date(diff);
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
   }
 }

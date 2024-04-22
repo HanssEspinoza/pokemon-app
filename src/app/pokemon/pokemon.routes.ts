@@ -16,6 +16,11 @@ export const pokemonRoutes: Routes = [
         loadComponent: () =>
           import('@pokemon/edit-page').then((m) => m.EditPageComponent),
       },
+      {
+        path: 'pokemons',
+        loadComponent: () =>
+          import('@pokemon/pokemon-page').then((m) => m.PokemonPageComponent),
+      },
 
       {
         path: '**',

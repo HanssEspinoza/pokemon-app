@@ -54,11 +54,6 @@ export class RegisterPageComponent {
   );
 
   onSubmit() {
-    if (this.registerForm().invalid) {
-      this.registerForm().markAllAsTouched();
-      return;
-    }
-
     this.isLoading.set(true);
 
     this.#authService

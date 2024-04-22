@@ -55,7 +55,15 @@ export class LoginPageComponent {
 
     this.#authService
       .login(this.loginForm().value)
-      .then(() => this.#router.navigateByUrl('/dashboard'))
+      .then((resp) => {
+        localStorage.setItem('displayName', resp.user.displayName ?? '');
+        localStorage.setItem('email', resp.user.email ?? '');
+        if (resp.user.displayName) {
+          this.#router.navigateByUrl('/dashboard/list');
+        } else {
+          this.#router.navigateByUrl('/dashboard/edit');
+        }
+      })
       .catch((err) => this.#toastService.showToast(err.message, 'error'))
       .finally(() => this.isLoading.set(false));
   }

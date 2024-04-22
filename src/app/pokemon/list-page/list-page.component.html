@@ -1,1 +1,142 @@
-<p>list-page works!</p>
+<div class="flex flex-row px-10 pt-10">
+  <h1 class="text-black px-10 text-4xl">
+    <b>¡Hola {{ name }}!</b>
+  </h1>
+  <button
+    type="button"
+    class="inline-flex justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-primary shadow-sm ring-1 ring-inset ring-primaryhover:bg-gray-50"
+    id="menu-button"
+    routerLink="/dashboard/edit"
+  >
+    Editar
+    <span class="material-symbols-outlined text-primary"> edit </span>
+  </button>
+</div>
+
+<div class="flex flex-col items-center justify-center bg-white px-4 py-8">
+  <div class="w-full max-w-4xl p-8">
+    <div class="flex flex-col lg:flex-row gap-20">
+      <app-profile-card
+        class="flex flex-col items-center w-full lg:w-1/2 bg-secondary text-white rounded-lg p-8"
+        [menu]="true"
+      />
+      <div class="flex flex-col w-full lg:w-1/2 bg-white rounded-r-lg p-8">
+        <div class="mb-8">
+          <h3 class="text-2xl font-thin mb-2 text-primary">Mis Pokémon</h3>
+        </div>
+        <div class="grid grid-cols-1 gap-4">
+          @for(item of selectedPokemons(); track item) {
+          <div class="bg-gray-100 rounded-lg p-8">
+            <div class="flex flex-row gap-3 items-center">
+              <div class="flex flex-col items-center">
+                <img [src]="item.img" [alt]="item.name" class="w-24 h-24" />
+                <div class="px-2 py-1 mt-1 rounded-lg">
+                  {{ item.name }}
+                </div>
+              </div>
+              <section class="flex-grow">
+                <p class="text-sm text-gray-500">HP</p>
+                <div
+                  aria-valuemax="100"
+                  aria-valuemin="0"
+                  role="progressbar"
+                  data-state="indeterminate"
+                  data-max="100"
+                  class="relative h-2 w-full overflow-hidden rounded-full bg-primary/20"
+                >
+                  <div
+                    data-state="indeterminate"
+                    data-max="100"
+                    class="h-full w-full flex-1 bg-primary transition-all"
+                    style="transform: translateX(-33%)"
+                  ></div>
+                </div>
+                <p class="text-sm text-gray-500">Ataque</p>
+                <div
+                  aria-valuemax="100"
+                  aria-valuemin="0"
+                  role="progressbar"
+                  data-state="indeterminate"
+                  data-max="100"
+                  class="relative h-2 w-full overflow-hidden rounded-full bg-primary/20"
+                >
+                  <div
+                    data-state="indeterminate"
+                    data-max="100"
+                    class="h-full w-full flex-1 bg-primary transition-all"
+                    style="transform: translateX(-33%)"
+                  ></div>
+                </div>
+                <p class="text-sm text-gray-500">Defensa</p>
+                <div
+                  aria-valuemax="100"
+                  aria-valuemin="0"
+                  role="progressbar"
+                  data-state="indeterminate"
+                  data-max="100"
+                  class="relative h-2 w-full overflow-hidden rounded-full bg-primary/20"
+                >
+                  <div
+                    data-state="indeterminate"
+                    data-max="100"
+                    class="h-full w-full flex-1 bg-primary transition-all"
+                    style="transform: translateX(-33%)"
+                  ></div>
+                </div>
+                <p class="text-sm text-gray-500">Ataque Especial</p>
+                <div
+                  aria-valuemax="100"
+                  aria-valuemin="0"
+                  role="progressbar"
+                  data-state="indeterminate"
+                  data-max="100"
+                  class="relative h-2 w-full overflow-hidden rounded-full bg-primary/20"
+                >
+                  <div
+                    data-state="indeterminate"
+                    data-max="100"
+                    class="h-full w-full flex-1 bg-primary transition-all"
+                    style="transform: translateX(-33%)"
+                  ></div>
+                </div>
+                <p class="text-sm text-gray-500">Defensa Especial</p>
+                <div
+                  aria-valuemax="100"
+                  aria-valuemin="0"
+                  role="progressbar"
+                  data-state="indeterminate"
+                  data-max="100"
+                  class="relative h-2 w-full overflow-hidden rounded-full bg-primary/20"
+                >
+                  <div
+                    data-state="indeterminate"
+                    data-max="100"
+                    class="h-full w-full flex-1 bg-primary transition-all"
+                    style="transform: translateX(-33%)"
+                  ></div>
+                </div>
+                <p class="text-sm text-gray-500">Velocidad Especial</p>
+                <div
+                  aria-valuemax="100"
+                  aria-valuemin="0"
+                  role="progressbar"
+                  data-state="indeterminate"
+                  data-max="100"
+                  class="relative h-2 w-full overflow-hidden rounded-full bg-primary/20"
+                >
+                  <div
+                    data-state="indeterminate"
+                    data-max="100"
+                    class="h-full w-full flex-1 bg-primary transition-all"
+                    style="transform: translateX(-33%)"
+                  ></div>
+                </div>
+              </section>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

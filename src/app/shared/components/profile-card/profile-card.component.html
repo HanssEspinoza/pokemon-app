@@ -1,4 +1,8 @@
+@if(menu()) {
+<h2 class="text-3xl font-bold mb-4">Entrenador</h2>
+} @else {
 <h2 class="text-3xl font-bold mb-4">{{ user()?.name }}</h2>
+}
 <div class="relative mb-4">
   @if(profileImageUrl) {
   <img

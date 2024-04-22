@@ -1,3 +1,5 @@
+import { Pokemon } from './pokemon.model';
+
 export interface PokemonResponse {
   count: number;
   next: string;
@@ -8,4 +10,9 @@ export interface PokemonResponse {
 export interface Result {
   name: string;
   url: string;
+}
+
+export interface PokemonListResponse {
+  user: string;
+  pokemons: Pokemon[];
 }

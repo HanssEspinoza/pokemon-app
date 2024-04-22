@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
-import { Pokemon, PokemonResponse } from '@core/models';
+import { Pokemon, PokemonListResponse, PokemonResponse } from '@core/models';
 import {
   Firestore,
   collection,
@@ -9,6 +9,7 @@ import {
   collectionData,
 } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -24,11 +25,19 @@ export class PokemonsService {
 
   addPokemons(pokemons: Pokemon[]) {
     const email = localStorage.getItem('email');
-    const pokemonData = { ...pokemons, user: email };
+    const pokemonData = { pokemons, user: email };
     const userRef = collection(this.#firestore, 'pokemons');
 
     this.#router.navigateByUrl('/dashboard/list');
 
     return addDoc(userRef, pokemonData);
+  }
+
+  getUser() {
+    const userRef = collection(this.#firestore, 'pokemons');
+
+    return collectionData(userRef, {
+      idField: 'id',
+    }) as Observable<PokemonListResponse[]>;
   }
 }

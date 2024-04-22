@@ -12,6 +12,7 @@ import { ToolbarComponent } from '@shared/components';
 })
 export class LayoutPageComponent {
   isMenuOpen = false;
+  name = localStorage.getItem('displayName');
 
   #authService = inject(AuthService);
   #router = inject(Router);

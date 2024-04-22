@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
 import { StorageService, UserService } from '@core/services';
 import { getDownloadURL } from '@angular/fire/storage';
 import { LoadingComponent } from '@shared/pages';
@@ -12,6 +12,8 @@ import { User } from '@core/models';
   styles: ``,
 })
 export class ProfileCardComponent {
+  menu = input.required<boolean>();
+
   email = localStorage.getItem('email');
   name = localStorage.getItem('displayName');
 
